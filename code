@@ -1,0 +1,147 @@
+Imports System.Windows.Forms
+Imports System.IO
+Public Class Form1
+
+    Private Sub Form1_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Timer1.Enabled = True
+        BtnLocation.Enabled = False
+    End Sub
+    Private Sub BtnLocation_Click(sender As System.Object, e As System.EventArgs) Handles BtnLocation.Click
+        Dim fbd As New FolderBrowserDialog
+        fbd.ShowNewFolderButton = True
+        If (fbd.ShowDialog() = DialogResult.OK) Then
+            LblPath.Text = fbd.SelectedPath
+            Dim Path As String = LblPath.Text
+        End If
+    End Sub
+    Private Sub BtnGo_Click(sender As System.Object, e As System.EventArgs) Handles BtnGo.Click
+        If CBOptions.SelectedItem = "EXE" Then
+            ListBox1.Items.Clear()
+            LblError.Text = ""
+            LblError.ForeColor = Color.Red
+            If LblDes.Text = "" Then
+                LblDes.Text = "D:\Desktop\Applications"
+            End If
+            'The Path
+            Dim di As New IO.DirectoryInfo(LblPath.Text)
+            'Gets the files in the path
+            Dim diar1 As IO.FileInfo() = di.GetFiles()
+            'Shows the files in the path
+            Dim dra As IO.FileInfo
+
+            For Each dra In diar1
+                If dra.Extension.ToLower = ".exe" Then
+                    ListBox1.Items.Add(dra)
+                    dra.MoveTo(Path.Combine(LblDes.Text, dra.Name))
+                End If
+            Next
+        End If
+        If CBOptions.SelectedItem = "JPEG" Then
+            LblError.Text = ""
+            LblError.ForeColor = Color.Red
+            'The Path
+            Dim di As New IO.DirectoryInfo(LblPath.Text)
+            'Gets the files in the path
+            Dim diar1 As IO.FileInfo() = di.GetFiles()
+            'Shows the files in the path
+            Dim dra As IO.FileInfo
+
+            For Each dra In diar1
+                If dra.Extension.ToLower = ".jpg" Then
+                    ListBox1.Items.Add(dra)
+                    dra.MoveTo(Path.Combine(LblDes.Text, dra.Name))
+                End If
+            Next
+            If LblDes.Text = "" Then
+                LblDes.Text = "D:\Desktop\Images"
+            End If
+        End If
+        If CBOptions.SelectedItem = "PNG" Then
+            LblError.Text = ""
+            LblError.ForeColor = Color.Red
+            'The Path
+            Dim di As New IO.DirectoryInfo(LblPath.Text)
+            'Gets the files in the path
+            Dim diar1 As IO.FileInfo() = di.GetFiles()
+            'Shows the files in the path
+            Dim dra As IO.FileInfo
+
+            For Each dra In diar1
+                If dra.Extension.ToLower = ".png" Then
+                    ListBox1.Items.Add(dra)
+                    dra.MoveTo(Path.Combine(LblDes.Text, dra.Name))
+                End If
+            Next
+            If LblDes.Text = "" Then
+                LblDes.Text = "D:\Desktop\Images"
+            End If
+        End If
+        If CBOptions.SelectedItem = "MP3" Then
+            LblError.Text = ""
+            LblError.ForeColor = Color.Red
+            'The Path
+            Dim di As New IO.DirectoryInfo(LblPath.Text)
+            'Gets the files in the path
+            Dim diar1 As IO.FileInfo() = di.GetFiles()
+            'Shows the files in the path
+            Dim dra As IO.FileInfo
+
+            For Each dra In diar1
+                If dra.Extension.ToLower = ".mp3" Then
+                    ListBox1.Items.Add(dra)
+                    dra.MoveTo(Path.Combine(LblDes.Text, dra.Name))
+                End If
+            Next
+            If LblDes.Text = "" Then
+                LblDes.Text = "D:\Desktop\Music"
+            End If
+        End If
+        If CBOptions.SelectedItem = "MP4" Then
+            LblError.Text = ""
+            LblError.ForeColor = Color.Red
+            'The Path
+            Dim di As New IO.DirectoryInfo(LblPath.Text)
+            'Gets the files in the path
+            Dim diar1 As IO.FileInfo() = di.GetFiles()
+            'Shows the files in the path
+            Dim dra As IO.FileInfo
+
+            For Each dra In diar1
+                If dra.Extension.ToLower = ".mp4" Then
+                    ListBox1.Items.Add(dra)
+                    dra.MoveTo(Path.Combine(LblDes.Text, dra.Name))
+                End If
+            Next
+            If LblDes.Text = "" Then
+                LblDes.Text = "D:\Desktop\Videos"
+            End If
+        End If
+        If CBOptions.SelectedItem = "" Then
+            LblError.Text = "Error No item selected"
+            LblError.ForeColor = Color.Red
+            LblDes.Text = ""
+        End If
+    End Sub
+
+    Private Sub Timer1_Tick(sender As System.Object, e As System.EventArgs) Handles Timer1.Tick
+        If LblPath.Text = "" Then
+            BtnGo.Enabled = False
+        Else
+            BtnGo.Enabled = True
+        End If
+        If LblDes.Text = "" Then
+            BtnLocation.Enabled = False
+        Else
+            BtnLocation.Enabled = True
+        End If
+    End Sub
+
+    Private Sub BtnEnd_Click(sender As System.Object, e As System.EventArgs) Handles BtnEnd.Click
+        Dim fbd As New FolderBrowserDialog
+        fbd.ShowNewFolderButton = True
+        If (fbd.ShowDialog() = DialogResult.OK) Then
+            LblDes.Text = fbd.SelectedPath
+            Dim Path As String = LblDes.Text
+        End If
+    End Sub
+End Class
